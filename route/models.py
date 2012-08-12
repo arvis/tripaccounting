@@ -44,7 +44,7 @@ class Trip(models.Model):
             self.custom_route=""
 
     def __unicode__(self):
-        if self.custom_route==1:
+        if self.route_name.id==1:
             return self.custom_route
         else:
             return self.route_name.title
