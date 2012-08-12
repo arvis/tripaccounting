@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 
 class Driver(models.Model):
     first_name = models.CharField(max_length=30)
@@ -25,13 +26,13 @@ class Route(models.Model):
 
 
 class Trip(models.Model):
-    route_name=models.ForeignKey(Route, default=None, null=True, blank=True)
-    custom_route = models.CharField(max_length=200, blank=True,null=True)
+    route_name=models.ForeignKey(Route, default=None, blank=True)
+    custom_route = models.CharField(max_length=200,blank=True)
     driver_name=models.ForeignKey(Driver)
     truck_name=models.ForeignKey(Truck)
     route_length= models.IntegerField()
-    route_started = models.DateTimeField('date published')
-    route_ended = models.DateTimeField('date published')
+    route_started = models.DateTimeField('Trip start time', blank=True,null=True)
+    route_ended = models.DateTimeField('Trip end time', blank=True,null=True)
     date_created = models.DateTimeField(auto_now=True, blank=True)
 
 
@@ -48,3 +49,10 @@ class Trip(models.Model):
             return self.custom_route
         else:
             return self.route_name.title
+
+
+
+class TripForm(ModelForm):
+
+    class Meta:
+        model = Trip

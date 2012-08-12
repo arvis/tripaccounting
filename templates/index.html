@@ -1,0 +1,10 @@
+{% if latest_trips %}
+    <ul>
+    {% for trip in latest_trips %}
+        <li><a href="/trips/{{ trip.id }}/">{{ trip }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No trips yet.</p>
+{% endif %}
+<a href="/trips/add/">Add new trip</a>
