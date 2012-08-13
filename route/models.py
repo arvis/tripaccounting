@@ -26,7 +26,7 @@ class Route(models.Model):
 
 
 class Trip(models.Model):
-    route_name=models.ForeignKey(Route, default=None, blank=True)
+    route_name=models.ForeignKey(Route, default=None, blank=True,null=True)
     custom_route = models.CharField(max_length=200,blank=True)
     driver_name=models.ForeignKey(Driver)
     truck_name=models.ForeignKey(Truck)
@@ -38,8 +38,8 @@ class Trip(models.Model):
 
     def clean(self):
         from django.core.exceptions import ValidationError
-        print self.custom_route 
-        if self.route_name.id==1 and self.custom_route=="":
+        #if self.route_name.id==1 and self.custom_route=="":
+        if self.route_name is None and self.custom_route=="":
             raise ValidationError('Please enter custom route name.')
         if self.route_name.id!=1:
             self.custom_route=""
